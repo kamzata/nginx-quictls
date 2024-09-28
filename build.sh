@@ -12,6 +12,7 @@ echo Fetch quictls source code.
 mkdir ngx/modules
 cd ngx/modules
 git clone --depth 1 --recursive https://github.com/quictls/openssl > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/giom/nginx_accept_language_module.git > /dev/null 2>&1
 echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 mkdir ngx_brotli/deps/brotli/out
@@ -22,12 +23,12 @@ cmake --build . --config Release --target brotlienc > /dev/null 2>&1
 cd ../../../..
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
-git clone --depth 1 --recursive https://github.com/giom/nginx_accept_language_module.git > /dev/null 2>&1
 echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
 --add-module=modules/headers-more-nginx-module --conf-path=/etc/nginx/nginx.conf \
+--add-module=modules/nginx_accept_language_module \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock \
 --http-client-body-temp-path=/var/cache/nginx/client_temp \
@@ -47,8 +48,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-openssl=modules/openssl > /dev/null 2>&1 \
---add-module=$HOME/nginx_accept_language_module/
+--with-openssl=modules/openssl > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
