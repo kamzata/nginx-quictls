@@ -2,6 +2,7 @@ set -e
 cd /github/home
 echo Install dependencies.
 apt-get update > /dev/null 2>&1
+apt-get install libpcre3 libpcre3-dev zlib1g-dev make libssl-dev > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
 cmake git libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
@@ -21,6 +22,7 @@ cmake --build . --config Release --target brotlienc > /dev/null 2>&1
 cd ../../../..
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/giom/nginx_accept_language_module.git > /dev/null 2>&1
 echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
@@ -45,7 +47,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-openssl=modules/openssl > /dev/null 2>&1
+--with-openssl=modules/openssl > /dev/null 2>&1 \
+--add-module=$HOME/nginx_accept_language_module/
 make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
