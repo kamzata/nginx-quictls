@@ -2,7 +2,7 @@ set -e
 cd /github/home
 echo Install dependencies.
 apt-get update > /dev/null 2>&1
-apt-get install libpcre3 libpcre3-dev zlib1g-dev make libssl-dev > /dev/null 2>&1
+# apt-get install libpcre3 libpcre3-dev zlib1g-dev make libssl-dev > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
 cmake git libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
