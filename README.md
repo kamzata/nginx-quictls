@@ -14,7 +14,7 @@ First, install NGINX from [nginx-http3](https://github.com/ononoki1/nginx-http3)
 
 ```bash
 sudo systemctl stop nginx
-sudo wget https://github.com/ononoki1/nginx-quictls/releases/latest/download/nginx -O /usr/sbin/nginx
+sudo wget https://github.com/kamzata/nginx-quictls/releases/latest/download/nginx -O /usr/sbin/nginx
 sudo chmod +x /usr/sbin/nginx
 sudo systemctl start nginx
 ```
