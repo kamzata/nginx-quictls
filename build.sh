@@ -35,6 +35,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --user=www-data --group=www-data --with-file-aio \
 --with-threads --with-pcre-jit --with-http_ssl_module \
 --with-http_v2_module --with-http_v3_module \
+--with-nginx-mod-http-zstd \
 --without-select_module --without-poll_module \
 --without-http_autoindex_module \
 --without-http_browser_module --without-http_charset_module \
